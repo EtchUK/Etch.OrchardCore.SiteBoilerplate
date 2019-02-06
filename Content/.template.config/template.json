@@ -1,0 +1,12 @@
+{
+    "author": "Etch",
+    "classifications": [ "OrchardCore", "Web" ],
+    "name": "Orchard Core Site Boilerplate",
+    "identity": "Moov2.OrchardCore.SiteBoilerplate",
+    "shortName": "orchardcore-siteboilerplate",
+    "tags": {
+        "language": "C#"
+    },
+    "sourceName": "Moov2.OrchardCore.SiteBoilerplate",
+    "preferNameDirectory" : "true"
+}
