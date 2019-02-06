@@ -8,5 +8,17 @@
         "language": "C#"
     },
     "sourceName": "Moov2.OrchardCore.SiteBoilerplate",
-    "preferNameDirectory" : "true"
+    "preferNameDirectory" : "true",
+    "symbols":{
+        "pname": {
+            "type": "parameter",
+            "defaultValue": "Orchard Core Site Boilerplate",
+            "replaces":"Orchard Core Site Boilerplate"
+        },
+        "pdescription": {
+            "type": "parameter",
+            "defaultValue": "Orchard Core Site Boilerplate Description",
+            "replaces":"This is a Orchard core site created using orchardcore-siteboilerplate"
+        }
+    }
 }
