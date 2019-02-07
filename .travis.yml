@@ -1,12 +1,12 @@
 language: csharp
 mono: none
-dotnet: 2.2.100
+dotnet: 2.2
 
 env:
   global:
     - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
     - DOTNET_CLI_TELEMETRY_OPTOUT: 1   
-    - WORKING_DIR=content
+    - WORKING_DIR=Content
   
 install:
  - cd $WORKING_DIR
