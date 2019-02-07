@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Moov2.OrchardCore.SiteBoilerplate</id>
+    <version>0.1.0</version>
+    <title>Moov2 Orchard Core Site Boilerplate</title>
+    <description>
+      Boilerplate site that is our starting point for building OrchardCore sites.
+    </description>
+    <authors>Moov2 Ltd.</authors>
+    <projectUrl>https://github.com/moov2/Moov2.OrchardCore.SiteBoilerplate</projectUrl>
+    <license type="file">LICENSE.md</license>
+    <packageTypes>
+      <packageType name="DotnetCliTool" />
+    </packageTypes>
+    <tags>orchardcore;moov2</tags>
+  </metadata>
+  <files>
+    <file src="LICENSE.md" target="" />
+    <file src="*\**" target="\" exclude="Content\src\Moov2.OrchardCore.SiteBoilerplate\bin\**\*;Content\src\Moov2.OrchardCore.SiteBoilerplate\obj\**\*;Content\src\Moov2.OrchardCore.SiteBoilerplate\App_Data\**\*" />
+  </files>
+</package>
