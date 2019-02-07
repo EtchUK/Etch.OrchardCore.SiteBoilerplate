@@ -1,6 +1,10 @@
 # Orchard Core Site Boilerplate
 Site boilerplate is our starting point for building Orchard Core sites.
 
+## Build Status
+
+[![Build Status](https://secure.travis-ci.org/moov2/Moov2.OrchardCore.SiteBoilerplate.png?branch=master)](http://travis-ci.org/moov2/Moov2.OrchardCore.SiteBoilerplate) [![NuGet](https://img.shields.io/nuget/v/Moov2.OrchardCore.SiteBoilerplate.svg)](https://www.nuget.org/packages/Moov2.OrchardCore.SiteBoilerplate)
+
 ### Getting Started
 
 To create a new site using the boilerplate it's quickest to use the dotnet new command. First you'll need to install the template, which is hosted on NuGet.
