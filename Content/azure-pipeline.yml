@@ -1,0 +1,25 @@
+trigger:
+  - master
+  
+pool:
+  vmImage: "vs2017-win2016"
+
+variables:
+  buildConfiguration: "Release"
+
+steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: "Building"
+  - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    displayName: "Packaging"
+  - task: ArchiveFiles@2
+    displayName: "Archiving"
+    inputs:
+      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)"
+      includeRootFolder: false
+      archiveFile: "$(Build.ArtifactStagingDirectory)/package/build-$(Build.BuildId).zip"
+      archiveType: "zip"
+  - task: PublishBuildArtifacts@1
+    displayName: "Publishing"
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/package"
