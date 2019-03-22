@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moov2.OrchardCore.SiteBoilerplate", "src\Moov2.OrchardCore.SiteBoilerplate\Moov2.OrchardCore.SiteBoilerplate.csproj", "{4EAEB124-E0A2-495A-914B-9529008E6AAA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Themes", "Themes", "{A2CEBE77-E664-4836-939B-1DF8EAC03997}"
+	ProjectSection(SolutionItems) = preProject
+		src\Themes\README.md = src\Themes\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
