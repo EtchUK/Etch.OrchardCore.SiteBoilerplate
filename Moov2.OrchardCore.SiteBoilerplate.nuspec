@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/moov2/Moov2.OrchardCore.SiteBoilerplate</projectUrl>
     <licenseUrl>https://github.com/moov2/Moov2.OrchardCore.SiteBoilerplate/blob/master/LICENSE</licenseUrl>
     <packageTypes>
-      <packageType name="DotnetCliTool" />
+      <packageType name="Template" />
     </packageTypes>
     <tags>orchardcore;moov2</tags>
   </metadata>
