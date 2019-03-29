@@ -15,3 +15,4 @@ install:
 
 script:
  - dotnet build
+ - nuget pack ./Moov2.OrchardCore.SiteBoilerplate.nuspec
