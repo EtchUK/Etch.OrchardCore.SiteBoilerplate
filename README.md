@@ -40,3 +40,9 @@ Project name displayed in the read me.
 
 Project description displayed in the read me.
 
+## Packaging Template
+
+This template has been made available on NuGet. To create the `.nupkg` file that can be published to NuGet, run the command shown below.
+
+    nuget pack ./Moov2.OrchardCore.SiteBoilerplate.nuspec
+
