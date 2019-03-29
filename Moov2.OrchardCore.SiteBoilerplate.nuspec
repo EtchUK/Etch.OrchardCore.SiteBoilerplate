@@ -9,7 +9,7 @@
     </description>
     <authors>Moov2 Ltd.</authors>
     <projectUrl>https://github.com/moov2/Moov2.OrchardCore.SiteBoilerplate</projectUrl>
-    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://github.com/moov2/Moov2.OrchardCore.SiteBoilerplate/blob/master/LICENSE</licenseUrl>
     <packageTypes>
       <packageType name="DotnetCliTool" />
     </packageTypes>
