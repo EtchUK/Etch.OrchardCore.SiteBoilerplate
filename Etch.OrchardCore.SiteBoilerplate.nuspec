@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Etch.OrchardCore.SiteBoilerplate</id>
+    <version>0.1.1</version>
+    <title>Etch Orchard Core Site Boilerplate</title>
+    <description>
+      Boilerplate site that is our starting point for building OrchardCore sites.
+    </description>
+    <authors>Etch UK</authors>
+    <projectUrl>https://github.com/etchuk/Etch.OrchardCore.SiteBoilerplate</projectUrl>
+    <licenseUrl>https://github.com/etchuk/Etch.OrchardCore.SiteBoilerplate/blob/master/LICENSE</licenseUrl>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>orchardcore;etch</tags>
+  </metadata>
+  <files>
+    <file src="LICENSE.md" target="" />
+    <file src="*\**" target="\" exclude="Content\src\Etch.OrchardCore.SiteBoilerplate\bin\**\*;Content\src\Etch.OrchardCore.SiteBoilerplate\obj\**\*;Content\src\Etch.OrchardCore.SiteBoilerplate\App_Data\**\*" />
+  </files>
+</package>
