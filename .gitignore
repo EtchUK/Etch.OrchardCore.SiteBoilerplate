@@ -340,4 +340,9 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# Terraform
+*.tfstate*
+.terraform
+*.tfvars
+
 App_Data/
