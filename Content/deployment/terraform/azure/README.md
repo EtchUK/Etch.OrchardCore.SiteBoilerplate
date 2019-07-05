@@ -32,8 +32,8 @@ The site configuration itself is implemented as a module under the `resources` d
 * `SP_NAME` - Name of service plan to deploy into, must already exist
 * `SQL_SERVER_NAME` - Name of SQL Server to deploy into, must already exist
 
-A note on `ENV` and `PROJECT`: these will be used together to create names for resources, invalid characters will be removed and spaces will be replaced with `-`.
+A note on `ENV` and `PROJECT`, these will be used together to create names for resources, invalid characters will be removed and spaces will be replaced with `-`.
 
 ## Outputs
 
-* `APP_SERVICE_NAME` - Name of main app serivce, can be used with [deployment tools](https://marketplace.visualstudio.com/items?itemName=raul-arrieta.terraform-outputs) to immediately deploy into created infrastructure.
+* `APP_SERVICE_NAME` - Name of main app service, can be used with [deployment tools](https://marketplace.visualstudio.com/items?itemName=raul-arrieta.terraform-outputs) to immediately deploy into created infrastructure.
