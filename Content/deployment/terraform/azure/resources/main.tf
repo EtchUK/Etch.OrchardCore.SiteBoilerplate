@@ -58,7 +58,7 @@ resource "azurerm_app_service" "as" {
 }
 
 resource "azurerm_storage_account" "sa" {
-  name                     = "${substr(local.project_basic_name, 0, 24)}"
+  name                     = "${substr(local.project_basic_name, 0, min(24, length(local.project_basic_name)))}"
   resource_group_name      = "${data.azurerm_resource_group.rg.name}"
   location                 = "${data.azurerm_resource_group.rg.location}"
   account_tier             = "Standard"
