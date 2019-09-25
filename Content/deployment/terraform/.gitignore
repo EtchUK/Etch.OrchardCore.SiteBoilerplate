@@ -1,0 +1,5 @@
+# Ignore plan files
+*.ter
+
+# Ignore var files for local testing, variables shouldn't be committed to repos
+*.tfvars
