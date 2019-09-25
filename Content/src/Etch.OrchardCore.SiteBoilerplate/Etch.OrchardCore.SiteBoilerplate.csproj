@@ -17,7 +17,7 @@
     <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="0.1.0-beta" />
     <PackageReference Include="Etch.OrchardCore.Search" Version="0.0.1-beta" />
     <PackageReference Include="Etch.OrchardCore.SEO" Version="0.4.4-beta" />
-    <PackageReference Include="Etch.OrchardCore.Widgets" Version="0.5.1-beta" />
+    <PackageReference Include="Etch.OrchardCore.Widgets" Version="0.5.2-beta" />
     <PackageReference Include="Etch.OrchardCore.Workflows" Version="0.1.0-beta" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-beta3-71077" />
