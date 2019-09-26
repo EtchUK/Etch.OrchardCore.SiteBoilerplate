@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Etch.OrchardCore.SiteBoilerplate", "src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj", "{4EAEB124-E0A2-495A-914B-9529008E6AAA}"
 EndProject
