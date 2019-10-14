@@ -30,6 +30,7 @@ The site configuration itself is implemented as a module under the `resources` d
 * `RG_NAME` - Name of resource group to deploy into, must already exist
 * `RG_NAME_ALT` - Optional name of 'major' region resource group in case `RG_NAME` doesn't support certain resources like CDN
 * `SP_NAME` - Name of service plan to deploy into, must already exist
+* `SQL_ELASTIC_POOL` - Optional name of SQL Elastic Pool to assign the database too, must already exist
 * `SQL_SERVER_NAME` - Name of SQL Server to deploy into, must already exist
 
 A note on `ENV` and `PROJECT`, these will be used together to create names for resources, invalid characters will be removed and spaces will be replaced with `-`.
