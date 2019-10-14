@@ -4,8 +4,8 @@ variable "env" {
 
 variable "hostnames" {
   description = "Hostnames to bind to the app service"
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "le_client_id" {
@@ -26,9 +26,8 @@ variable "le_tenant" {
 
 variable "project" {
   description = "Project name for resource names"
-  default = "Orchard Core Site Boilerplate"
+  default     = "Orchard Core Site Boilerplate"
 }
-
 
 variable "rg_name" {
   description = "Name of resource group to create infrastructure in"
@@ -41,6 +40,10 @@ variable "rg_name_alt" {
 
 variable "sp_name" {
   description = "Name of service plan to create app service in"
+}
+
+variable "sql_elastic_pool" {
+  description = "Elastic pool to assign SQL database to"
 }
 
 variable "sql_server_name" {
