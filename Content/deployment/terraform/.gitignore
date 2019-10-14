@@ -1,5 +1,11 @@
-# Ignore plan files
+# Terraform hidden directory
+.terraform
+
+# Plan files
 *.ter
 
-# Ignore var files for local testing, variables shouldn't be committed to repos
+# Var files for local testing, variables shouldn't be committed to repos
 *.tfvars
+
+# State files
+*.tfstate*
