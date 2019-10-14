@@ -42,6 +42,10 @@ variable "SP_NAME" {
   description = "Name of service plan to create app service in"
 }
 
+variable "SQL_ELASTIC_POOL" {
+  description = "Name of Elastic Pool to create database in"
+}
+
 variable "SQL_SERVER_NAME" {
   description = "Name of SQL server to create database in"
 }

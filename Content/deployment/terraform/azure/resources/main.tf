@@ -80,7 +80,8 @@ resource "azurerm_sql_database" "sd" {
   server_name         = "${var.sql_server_name}"
 
   edition                          = "Standard"
-  requested_service_objective_name = "S0"
+  requested_service_objective_name = "${var.sql_elastic_pool != "" ? "ElasticPool" : "S0"}"
+  elastic_pool_name                = "${var.sql_elastic_pool}"
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "hostnames" {
