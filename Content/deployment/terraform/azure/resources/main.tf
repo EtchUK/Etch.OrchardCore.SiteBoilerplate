@@ -78,6 +78,9 @@ resource "azurerm_sql_database" "sd" {
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
   location            = "${data.azurerm_resource_group.rg.location}"
   server_name         = "${var.sql_server_name}"
+
+  edition                          = "Standard"
+  requested_service_objective_name = "S0"
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "hostnames" {
