@@ -12,11 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Etch.OrchardCore.Blocks" Version="0.1.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.ContextualEdit" Version="0.2.0-rc1" />
-    <PackageReference Include="Etch.OrchardCore.Fields" Version="0.7.0-rc1" />
+    <PackageReference Include="Etch.OrchardCore.DefaultTheme" Version="0.5.1-rc1" />
+    <PackageReference Include="Etch.OrchardCore.Fields" Version="0.7.1-rc1" />
     <PackageReference Include="Etch.OrchardCore.Gallery" Version="0.2.0-rc1" />
+    <PackageReference Include="Etch.OrchardCore.HostTheme" Version="0.1.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="0.2.0-rc1" />
-    <PackageReference Include="Etch.OrchardCore.SEO" Version="0.5.0-rc1" />
+    <PackageReference Include="Etch.OrchardCore.News" Version="0.1.2-rc1" />
+    <PackageReference Include="Etch.OrchardCore.SEO" Version="0.5.1-rc1" />
     <PackageReference Include="Etch.OrchardCore.Widgets" Version="0.6.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.Workflows" Version="0.2.0-rc1" />
     <PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc1-10004" />
