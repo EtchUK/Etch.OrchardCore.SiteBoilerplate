@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="0.1.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.Blocks" Version="0.1.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.ContextualEdit" Version="0.2.0-rc1" />
     <PackageReference Include="Etch.OrchardCore.DefaultTheme" Version="0.5.1-rc1" />
