@@ -91,6 +91,13 @@ resource "azurerm_app_service_custom_hostname_binding" "hostnames" {
   hostname            = "${var.hostnames[count.index]}"
   app_service_name    = "${azurerm_app_service.as.name}"
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
+
+  lifecycle {
+    ignore_changes = [
+      ssl_state,
+      thumbprint
+    ]
+  }
 }
 
 resource "azurerm_cdn_profile" "cp" {
