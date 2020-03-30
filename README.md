@@ -6,6 +6,12 @@ Site boilerplate is our starting point for building Orchard Core sites.
 
 [![Build Status](https://secure.travis-ci.org/EtchUK/Etch.OrchardCore.SiteBoilerplate.png?branch=master)](http://travis-ci.org/EtchUK/Etch.OrchardCore.SiteBoilerplate) [![NuGet](https://img.shields.io/nuget/v/Etch.OrchardCore.SiteBoilerplate.svg)](https://www.nuget.org/packages/Etch.OrchardCore.SiteBoilerplate)
 
+## Prerequisities
+
+### [.NET Core](https://docs.microsoft.com/en-us/dotnet/core/)
+
+Orchard Core runs on the .NET Core. Download the latest version from [https://www.microsoft.com/net/download/core](https://www.microsoft.com/net/download/core).
+
 ### Getting Started
 
 To create a new site using the boilerplate it's quickest to use the dotnet new command. First you'll need to install the template, which is hosted on NuGet.
