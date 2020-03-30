@@ -34,6 +34,8 @@ resource "azurerm_app_service" "as" {
   app_settings = {
     "AzureWebJobsDashboard" = "${azurerm_storage_account.sa.primary_connection_string}"
     "AzureWebJobsStorage"   = "${azurerm_storage_account.sa.primary_connection_string}"
+    "DashboardConnectionString" = "${azurerm_storage_account.sa.primary_connection_string}"
+    "StorageConnectionString"   = "${azurerm_storage_account.sa.primary_connection_string}"
 
     "letsencrypt:ClientId"                     = "${var.le_client_id}"
     "letsencrypt:ClientSecret"                 = "${var.le_client_secret}"
