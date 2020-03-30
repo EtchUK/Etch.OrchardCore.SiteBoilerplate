@@ -345,3 +345,7 @@ healthchecksdb
 
 App_Data/
 Localization
+
+# OSx files
+
+.DS_Store
