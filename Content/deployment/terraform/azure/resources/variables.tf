@@ -4,7 +4,7 @@ variable "env" {
 
 variable "hostnames" {
   description = "Hostnames to bind to the app service"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -49,3 +49,4 @@ variable "sql_elastic_pool" {
 variable "sql_server_name" {
   description = "Name of SQL server to create database in"
 }
+
