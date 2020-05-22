@@ -54,7 +54,7 @@ resource "azurerm_app_service" "as" {
     "letsencrypt:UseIPBasedSSL"                            = "false"
     "OrchardCore:OrchardCore.Media.Azure:ConnectionString" = azurerm_storage_account.sa.primary_connection_string
     "OrchardCore:OrchardCore.Media.Azure:ContainerName"    = "media"
-    "OrchardCore:OrchardCore.Media.Azure:PublicHostName"   = "${random_id.cdn.hex}.azureedge.net"
+    "OrchardCore:OrchardCore.Media:CdnBaseUrl"             = "${random_id.cdn.hex}.azureedge.net"
     "WEBSITE_NODE_DEFAULT_VERSION"                         = "6.9.1"
     "WEBSITE_RUN_FROM_PACKAGE"                             = "0"
   }
