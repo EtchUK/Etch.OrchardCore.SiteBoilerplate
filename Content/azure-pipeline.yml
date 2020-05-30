@@ -1,3 +1,6 @@
+resources:
+  - repo: self
+
 trigger:
   - master
   
@@ -8,18 +11,47 @@ variables:
   buildConfiguration: "Release"
 
 steps:
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: "Building"
-  - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-    displayName: "Packaging"
-  - task: ArchiveFiles@2
-    displayName: "Archiving"
+  - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
+    displayName: "Restore artifact based on: **/package-lock.json"
     inputs:
-      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)"
-      includeRootFolder: false
-      archiveFile: "$(Build.ArtifactStagingDirectory)/package/build-$(Build.BuildId).zip"
-      archiveType: "zip"
+      keyfile: "**/package-lock.json"
+      targetfolder: "**/node_modules,**/node_modules/**/node_modules"
+      vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
+
+  - task: UseNode@1
+    inputs:
+      version: '8.x'
+      checkLatest: true
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet build"
+    inputs:
+      command: build
+      arguments: "--configuration $(buildConfiguration)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet publish"
+    inputs:
+      command: publish
+      publishWebProjects: false
+      projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
+      arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
+
+  - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
+    displayName: "Save artifact based on: **/package-lock.json"
+    inputs:
+      keyfile: "**/package-lock.json"
+      targetfolder: "**/node_modules,**/node_modules/**/node_modules"
+      vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
+
+  - task: CopyFiles@2
+    displayName: "Copy Terraform scripts"
+    inputs:
+      SourceFolder: deployment/terraform/azure
+      Contents: "**/*.tf"
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/terraform"
+
   - task: PublishBuildArtifacts@1
     displayName: "Publishing"
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/package"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)"
