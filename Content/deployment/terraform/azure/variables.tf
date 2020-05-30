@@ -1,51 +1,52 @@
-variable "ENV" {
+variable "env" {
   description = "Environment descriptor"
 }
 
-variable "HOSTNAMES" {
+variable "hostnames" {
   description = "Hostnames to bind to the app service"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
-variable "LE_CLIENT_ID" {
+variable "le_client_id" {
   description = "Lets Encrypt APP ID"
 }
 
-variable "LE_CLIENT_SECRET" {
+variable "le_client_secret" {
   description = "Lets Encrypt App ID"
 }
 
-variable "LE_SUBSCRIPTION_ID" {
+variable "le_subscription_id" {
   description = "Lets Encrypt Subscription ID"
 }
 
-variable "LE_TENANT" {
+variable "le_tenant" {
   description = "Lets Encrypt Tenant"
 }
 
-variable "PROJECT" {
-  description = "Project name for use in resource names"
+variable "project" {
+  description = "Project name for resource names"
   default     = "Orchard Core Site Boilerplate"
 }
 
-variable "RG_NAME" {
+variable "rg_name" {
   description = "Name of resource group to create infrastructure in"
 }
 
-variable "RG_NAME_ALT" {
+variable "rg_name_alt" {
   description = "Name of alternative resource group to create infrastructure in, used for items like CDN which can only be created in 'major' regions"
   default     = ""
 }
 
-variable "SP_NAME" {
+variable "sp_name" {
   description = "Name of service plan to create app service in"
 }
 
-variable "SQL_ELASTIC_POOL" {
-  description = "Name of Elastic Pool to create database in"
+variable "sql_elastic_pool" {
+  description = "Elastic pool to assign SQL database to"
 }
 
-variable "SQL_SERVER_NAME" {
+variable "sql_server_name" {
   description = "Name of SQL server to create database in"
 }
+
