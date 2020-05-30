@@ -1,6 +1,6 @@
 # Orchard Core Site Boilerplate
 
-Orchard Core Site Boilerplate Description
+This is a short description of the project.
 
 ## Prerequisities
 
