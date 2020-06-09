@@ -4,54 +4,99 @@ resources:
 trigger:
   - master
   
-pool:
-  vmImage: "windows-2019"
-
 variables:
   buildConfiguration: "Release"
 
-steps:
-  - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
-    displayName: "Restore artifact based on: **/package-lock.json"
-    inputs:
-      keyfile: "**/package-lock.json"
-      targetfolder: "**/node_modules,**/node_modules/**/node_modules"
-      vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
+      displayName: "Restore artifact based on: **/package-lock.json"
+      inputs:
+        keyfile: "**/package-lock.json"
+        targetfolder: "**/node_modules,**/node_modules/**/node_modules"
+        vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
 
-  - task: UseNode@1
-    inputs:
-      version: '8.x'
-      checkLatest: true
+    - task: UseNode@1
+      inputs:
+        version: '8.x'
+        checkLatest: true
 
-  - task: DotNetCoreCLI@2
-    displayName: "dotnet build"
-    inputs:
-      command: build
-      arguments: "--configuration $(buildConfiguration)"
+    - task: DotNetCoreCLI@2
+      displayName: "dotnet build"
+      inputs:
+        command: build
+        arguments: "--configuration $(buildConfiguration)"
 
-  - task: DotNetCoreCLI@2
-    displayName: "dotnet publish"
-    inputs:
-      command: publish
-      publishWebProjects: false
-      projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
-      arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
+    - task: DotNetCoreCLI@2
+      displayName: "dotnet publish"
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
+        arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
 
-  - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
-    displayName: "Save artifact based on: **/package-lock.json"
-    inputs:
-      keyfile: "**/package-lock.json"
-      targetfolder: "**/node_modules,**/node_modules/**/node_modules"
-      vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
+    - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
+      displayName: "Save artifact based on: **/package-lock.json"
+      inputs:
+        keyfile: "**/package-lock.json"
+        targetfolder: "**/node_modules,**/node_modules/**/node_modules"
+        vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
 
-  - task: CopyFiles@2
-    displayName: "Copy Terraform scripts"
-    inputs:
-      SourceFolder: deployment/terraform/azure
-      Contents: "**/*.tf"
-      TargetFolder: "$(Build.ArtifactStagingDirectory)/terraform"
+    - task: PublishBuildArtifacts@1
+      displayName: "Publishing"
+      inputs:
+        pathtoPublish: "$(Build.ArtifactStagingDirectory)"
 
-  - task: PublishBuildArtifacts@1
-    displayName: "Publishing"
-    inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+- stage: staging_deploy
+  displayName: Staging Deployment
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  variables:
+  - group: 'Staging'
+  jobs:
+  - deployment: staging_deploy
+    displayName: Staging Deploy
+    pool:
+      vmImage: 'windows-latest'
+    environment: 'Staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'App Service Deploy'
+            inputs:
+              azureSubscription: 'Dev Ops Staging'
+              WebAppName: '$(APP_SERVICE_NAME)'
+              packageForLinux: '$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip'
+              enableCustomDeployment: true
+              RemoveAdditionalFilesFlag: true
+
+- stage: prod_deploy
+  displayName: Prod Deployment
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  variables:
+  - group: 'Prod'
+  jobs:
+  - deployment: prod_deploy
+    displayName: Prod Deploy
+    pool:
+      vmImage: 'windows-latest'
+    environment: 'Prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'App Service Deploy'
+            inputs:
+              azureSubscription: 'Dev Ops Prod'
+              WebAppName: '$(APP_SERVICE_NAME)'
+              packageForLinux: '$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip'
+              enableCustomDeployment: true
+              RemoveAdditionalFilesFlag: true
