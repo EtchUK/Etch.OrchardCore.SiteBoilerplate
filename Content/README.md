@@ -10,7 +10,7 @@ Orchard Core runs on the .NET Core. Download the latest version from [https://ww
 
 ## Orchard Core Reference
 
-This module is referencing the RC1 build of Orchard Core ([`1.0.0-rc1-10004`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.0.0-rc1-10004)).
+This project is referencing the RC2 build of Orchard Core ([`1.0.0-rc2-13450`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.0.0-rc2-13450)).
 
 ## Running Locally
 
@@ -23,3 +23,7 @@ Run the command shown below and then navigate to `https://localhost:5001` in you
 ### Visual Studio
 
 Open the solution in Visual Studio and run the `Etch.OrchardCore.SiteBoilerplate` project. This will open your default browser and you'll be presented with the Orchard setup page.
+
+## Notes
+
+This project was created using `v0.4.7` of [Etch.OrchardCore.SiteBoilerplate](https://github.com/EtchUK/Etch.OrchardCore.SiteBoilerplate) template.
