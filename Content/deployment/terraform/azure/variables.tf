@@ -26,7 +26,7 @@ variable "LE_TENANT" {
 
 variable "PROJECT" {
   description = "Project name for resource names"
-  default     = "Play CMS Demo"
+  default     = "Orchard Core Site Boilerplate"
 }
 
 variable "RG_NAME" {
