@@ -4,110 +4,110 @@ resources:
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - deployment/*
-    - infrastructure-pipeline.yml
+      - deployment/*
+      - infrastructure-pipeline.yml
 
 variables:
-  TF_LOCATION: '$(System.DefaultWorkingDirectory)/deployment/terraform/azure'
+  TF_LOCATION: "$(System.DefaultWorkingDirectory)/deployment/terraform/azure"
 
 stages:
-- stage: staging_infrastructure
-  displayName: Staging Infrastructure
-  condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
-  jobs:
-  - deployment: staging_infrastructure
+  - stage: staging_infrastructure
     displayName: Staging Infrastructure
-    environment: 'Staging'
-    variables:
-      - group: 'Staging'
-    pool:
-      vmImage: 'windows-latest'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - checkout: self
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-            displayName: 'Use Terraform'
-            inputs:
-              terraformVersion: 0.12.26
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Init'
-            inputs:
-              command: init
-              workingDirectory: '$(TF_LOCATION)'
-              backendType: azurerm
-              backendServiceArm: 'Dev Ops Staging'
-              ensureBackend: true
-              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
-              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
-              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
-              backendAzureRmStorageAccountSku: 'Standard_LRS'
-              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
-              backendAzureRmKey: '$(TF_VAR_ENV)'
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Plan'
-            inputs:
-              command: plan
-              workingDirectory: '$(TF_LOCATION)'
-              environmentServiceName: 'Dev Ops Staging'
-              commandOptions: '-out plan.ter'
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Apply'
-            inputs:
-              command: apply
-              workingDirectory: '$(TF_LOCATION)'
-              environmentServiceName: 'Dev Ops Staging'
-              commandOptions: '-auto-approve plan.ter'
+    condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: staging_infrastructure
+        displayName: Staging Infrastructure
+        environment: "Staging"
+        variables:
+          - group: "Staging"
+        pool:
+          vmImage: "windows-latest"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+                  displayName: "Use Terraform"
+                  inputs:
+                    terraformVersion: 0.12.26
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Init"
+                  inputs:
+                    command: init
+                    workingDirectory: "$(TF_LOCATION)"
+                    backendType: azurerm
+                    backendServiceArm: "Dev Ops Staging"
+                    ensureBackend: true
+                    backendAzureRmResourceGroupName: "$(STATE_STORAGE_RESOURCE_GROUP)"
+                    backendAzureRmResourceGroupLocation: "$(STATE_STORAGE_LOCATION)"
+                    backendAzureRmStorageAccountName: "$(STATE_STORAGE_ACCOUNT)"
+                    backendAzureRmStorageAccountSku: "Standard_LRS"
+                    backendAzureRmContainerName: "$(STATE_STORAGE_CONTAINER)"
+                    backendAzureRmKey: "$(TF_VAR_ENV)"
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Plan"
+                  inputs:
+                    command: plan
+                    workingDirectory: "$(TF_LOCATION)"
+                    environmentServiceName: "Dev Ops Staging"
+                    commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Apply"
+                  inputs:
+                    command: apply
+                    workingDirectory: "$(TF_LOCATION)"
+                    environmentServiceName: "Dev Ops Staging"
+                    commandOptions: "-auto-approve plan.ter"
 
-- stage: prod_infrastructure
-  displayName: Prod Infrastructure
-  condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
-  jobs:
-  - deployment: prod_infrastructure
+  - stage: prod_infrastructure
     displayName: Prod Infrastructure
-    environment: 'Prod'
-    variables:
-      - group: 'Prod'
-    pool:
-      vmImage: 'windows-latest'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - checkout: self
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-            displayName: 'Use Terraform'
-            inputs:
-              terraformVersion: 0.12.26
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Init'
-            inputs:
-              command: init
-              workingDirectory: '$(TF_LOCATION)'
-              backendType: azurerm
-              backendServiceArm: 'Dev Ops Prod'
-              ensureBackend: true
-              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
-              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
-              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
-              backendAzureRmStorageAccountSku: 'Standard_LRS'
-              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
-              backendAzureRmKey: '$(TF_VAR_ENV)'
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Plan'
-            inputs:
-              command: plan
-              workingDirectory: '$(TF_LOCATION)'
-              environmentServiceName: 'Dev Ops Prod'
-              commandOptions: '-out plan.ter'
-          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
-            displayName: 'Terraform Apply'
-            inputs:
-              command: apply
-              workingDirectory: '$(TF_LOCATION)'
-              environmentServiceName: 'Dev Ops Prod'
-              commandOptions: '-auto-approve plan.ter'
+    condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: prod_infrastructure
+        displayName: Prod Infrastructure
+        environment: "Prod"
+        variables:
+          - group: "Prod"
+        pool:
+          vmImage: "windows-latest"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+                  displayName: "Use Terraform"
+                  inputs:
+                    terraformVersion: 0.12.26
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Init"
+                  inputs:
+                    command: init
+                    workingDirectory: "$(TF_LOCATION)"
+                    backendType: azurerm
+                    backendServiceArm: "Dev Ops Prod"
+                    ensureBackend: true
+                    backendAzureRmResourceGroupName: "$(STATE_STORAGE_RESOURCE_GROUP)"
+                    backendAzureRmResourceGroupLocation: "$(STATE_STORAGE_LOCATION)"
+                    backendAzureRmStorageAccountName: "$(STATE_STORAGE_ACCOUNT)"
+                    backendAzureRmStorageAccountSku: "Standard_LRS"
+                    backendAzureRmContainerName: "$(STATE_STORAGE_CONTAINER)"
+                    backendAzureRmKey: "$(TF_VAR_ENV)"
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Plan"
+                  inputs:
+                    command: plan
+                    workingDirectory: "$(TF_LOCATION)"
+                    environmentServiceName: "Dev Ops Prod"
+                    commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+                - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+                  displayName: "Terraform Apply"
+                  inputs:
+                    command: apply
+                    workingDirectory: "$(TF_LOCATION)"
+                    environmentServiceName: "Dev Ops Prod"
+                    commandOptions: "-auto-approve plan.ter"
