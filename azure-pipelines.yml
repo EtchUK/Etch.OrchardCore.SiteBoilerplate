@@ -1,0 +1,56 @@
+resources:
+  - repo: self
+
+trigger:
+  tags:
+    include:
+      - "*"
+  branches:
+    include:
+      - master
+
+variables:
+  buildConfiguration: "Release"
+
+stages:
+  - stage: build
+    displayName: Build
+    variables:
+      - group: "Global"
+    jobs:
+      - job: Build
+        pool:
+          vmImage: "windows-latest"
+        steps:
+          - task: NuGetCommand@2
+            displayName: 'NuGet pack'
+            inputs:
+              command: pack
+              packagesToPack: Etch.OrchardCore.SiteBoilerplate.nuspec
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Pipeline Artifact'
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)'
+              artifact: drop
+
+  - stage: publish
+    displayName: NuGet Publish
+    dependsOn: build
+    condition: and(succeeded(), startsWith(variables['build.sourceBranch'], 'refs/tags/'))
+    jobs:
+      - job: Publish
+        pool:
+          vmImage: "windows-latest"
+        steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: "current"
+              path: "$(Pipeline.Workspace)"
+          - task: NuGetCommand@2
+            displayName: "NuGet push"
+            inputs:
+              command: push
+              packagesToPush: "$(Pipeline.Workspace)/**/drop/*.nupkg"
+              nuGetFeedType: external
+              publishFeedCredentials: "NuGet"
