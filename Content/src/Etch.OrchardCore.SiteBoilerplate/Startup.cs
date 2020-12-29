@@ -22,6 +22,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseOrchardCore();
         }
     }
