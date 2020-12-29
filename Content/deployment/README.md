@@ -21,7 +21,7 @@ The following is a high level overview of the provided infrastructure (with Azur
 * Application Instance (App Service)
 * SQL Database
 * CDN 'Server' (CDN Profile)
-* CDN Endpoint
+* CDN Endpoints
 
 ## SQL
 

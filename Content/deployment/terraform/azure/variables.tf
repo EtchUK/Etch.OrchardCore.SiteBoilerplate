@@ -8,6 +8,18 @@ variable "HOSTNAMES" {
   default     = []
 }
 
+variable "TENANTS" {
+  description = "Names of tenants"
+  type        = list(string)
+  default     = []
+}
+
+variable "TENANT_URLS" {
+  description = "Primary URL to tenant sites"
+  type        = list(string)
+  default     = []
+}
+
 variable "LE_CLIENT_ID" {
   description = "Lets Encrypt APP ID"
 }
