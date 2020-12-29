@@ -11,6 +11,7 @@ data "azurerm_app_service_plan" "sp" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
+
 locals {
   project_basic_name = lower(
     replace(format("%s%s", var.env, var.project), "/[^A-Za-z]+/", ""),
@@ -22,9 +23,29 @@ locals {
       "",
     ),
   )
+  cdn_urls = {for t in var.tenants: "OrchardCore:${t}:OrchardCore_Media:CdnBaseUrl" => "https://${element(random_id.cdn.*.hex, index(var.tenants, t))}.azureedge.net" }
+  tenant_settings = {for t in var.tenants: "OrchardCore:${t}:OrchardCore_Media:AssetsRequestPath" => "/media/${t}" }
+  app_settings = merge({
+    "DashboardConnectionString"                            = azurerm_storage_account.sa.primary_connection_string
+    "StorageConnectionString"                              = azurerm_storage_account.sa.primary_connection_string
+    "letsencrypt:ClientId"                                 = var.le_client_id
+    "letsencrypt:ClientSecret"                             = var.le_client_secret
+    "letsencrypt:ResourceGroupName"                        = data.azurerm_resource_group.rg.name
+    "letsencrypt:ServicePlanResourceGroupName"             = data.azurerm_resource_group.rg.name
+    "letsencrypt:SiteSlot"                                 = ""
+    "letsencrypt:SubscriptionId"                           = var.le_subscription_id
+    "letsencrypt:Tenant"                                   = var.le_tenant
+    "letsencrypt:UseIPBasedSSL"                            = "false"
+    "OrchardCore:OrchardCore.Media.Azure:ConnectionString" = azurerm_storage_account.sa.primary_connection_string
+    "OrchardCore:OrchardCore.Media.Azure:ContainerName"    = "media"
+    "OrchardCore:OrchardCore.Media.Azure:BasePath"         = "{{ ShellSettings.Name }}"
+    "WEBSITE_NODE_DEFAULT_VERSION"                         = "6.9.1"
+    "WEBSITE_RUN_FROM_PACKAGE"                             = "0"
+  }, local.tenant_settings, local.cdn_urls)
 }
 
 resource "random_id" "cdn" {
+  count = length(var.tenant_urls)
   keepers = {
     azi_id = 1
   }
@@ -39,24 +60,18 @@ resource "azurerm_app_service" "as" {
   app_service_plan_id = data.azurerm_app_service_plan.sp.id
   https_only          = true
 
-  app_settings = {
-    "AzureWebJobsDashboard"                                = azurerm_storage_account.sa.primary_connection_string
-    "AzureWebJobsStorage"                                  = azurerm_storage_account.sa.primary_connection_string
-    "DashboardConnectionString"                            = azurerm_storage_account.sa.primary_connection_string
-    "StorageConnectionString"                              = azurerm_storage_account.sa.primary_connection_string
-    "letsencrypt:ClientId"                                 = var.le_client_id
-    "letsencrypt:ClientSecret"                             = var.le_client_secret
-    "letsencrypt:ResourceGroupName"                        = data.azurerm_resource_group.rg.name
-    "letsencrypt:ServicePlanResourceGroupName"             = data.azurerm_resource_group.rg.name
-    "letsencrypt:SiteSlot"                                 = ""
-    "letsencrypt:SubscriptionId"                           = var.le_subscription_id
-    "letsencrypt:Tenant"                                   = var.le_tenant
-    "letsencrypt:UseIPBasedSSL"                            = "false"
-    "OrchardCore:OrchardCore.Media.Azure:ConnectionString" = azurerm_storage_account.sa.primary_connection_string
-    "OrchardCore:OrchardCore.Media.Azure:ContainerName"    = "media"
-    "OrchardCore:OrchardCore.Media:CdnBaseUrl"             = "${random_id.cdn.hex}.azureedge.net"
-    "WEBSITE_NODE_DEFAULT_VERSION"                         = "6.9.1"
-    "WEBSITE_RUN_FROM_PACKAGE"                             = "0"
+  app_settings = local.app_settings
+
+  connection_string {
+    name  = "AzureWebJobsDashboard"
+    type  = "Custom"
+    value = azurerm_storage_account.sa.primary_connection_string
+  }
+
+  connection_string {
+    name  = "AzureWebJobsStorage"
+    type  = "Custom"
+    value = azurerm_storage_account.sa.primary_connection_string
   }
 
   site_config {
@@ -116,15 +131,18 @@ resource "azurerm_cdn_profile" "cp" {
 }
 
 resource "azurerm_cdn_endpoint" "ce" {
-  name                = random_id.cdn.hex
+  count = length(var.tenant_urls)
+  name                = random_id.cdn[count.index].hex
   profile_name        = azurerm_cdn_profile.cp.name
   location            = data.azurerm_resource_group.rg_alt.location
   resource_group_name = data.azurerm_resource_group.rg_alt.name
-  origin_host_header  = azurerm_storage_account.sa.primary_blob_host
+  querystring_caching_behaviour = "UseQueryString"
 
   origin {
-    name      = "StorageAccount"
-    host_name = azurerm_storage_account.sa.primary_blob_host
+    name      = "Custom"
+    host_name = var.tenant_urls[count.index]
   }
+
+  origin_host_header = var.tenant_urls[count.index]
 }
 

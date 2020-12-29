@@ -22,6 +22,8 @@ The site configuration itself is implemented as a module under the `resources` d
 
 * `ENV` - Environment for this instance of infrastructure (e.g.: `dev`)
 * `HOSTNAMES` - List of strings for hostnames to bind (these must already have CNAME validation set up)
+* `TENANTS` - List of strings for names of tenants on site
+* `TENANT_URLS` - List of strings for primary hostnames for each tenant used to create CDN endpoints that point to hostname
 * `LE_CLIENT_ID` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Client ID
 * `LE_CLIENT_SECRET` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Client Secret
 * `LE_SUBSCRIPTION_ID` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Azure Subscription ID
