@@ -22,6 +22,24 @@ stages:
         pool:
           vmImage: "windows-latest"
         steps:
+          - task: SonarCloudPrepare@1
+            displayName: "Prepare SonarCloud Analysis"
+            inputs:
+              SonarCloud: "SC"
+              organization: "$(SC_ORGANIZATION)"
+              scannerMode: "MSBuild"
+              projectKey: "Etch.OrchardCore.SiteBoilerplate"
+              projectName: "Etch.OrchardCore.SiteBoilerplate"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Build project"
+            inputs:
+              workingDirectory: $(System.DefaultWorkingDirectory)/content
+              arguments: "-c $(BuildConfiguration)"
+
+          - task: SonarCloudAnalyze@1
+            displayName: "Run SonarCloud Analysis"
+
           - task: NuGetCommand@2
             displayName: 'NuGet pack'
             inputs:
@@ -34,6 +52,9 @@ stages:
               targetPath: '$(Build.ArtifactStagingDirectory)'
               artifact: drop
 
+          - task: SonarCloudPublish@1
+            displayName: "Publish SonarCloud Results"
+            
   - stage: publish
     displayName: NuGet Publish
     dependsOn: build
