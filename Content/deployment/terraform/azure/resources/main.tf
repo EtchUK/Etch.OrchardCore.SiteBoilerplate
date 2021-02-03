@@ -138,6 +138,12 @@ resource "azurerm_cdn_endpoint" "ce" {
   resource_group_name = data.azurerm_resource_group.rg_alt.name
   querystring_caching_behaviour = "UseQueryString"
 
+  lifecycle {
+    ignore_changes = [
+      global_delivery_rule
+    ]
+  }
+
   origin {
     name      = "Custom"
     host_name = var.tenant_urls[count.index]
