@@ -19,7 +19,7 @@ variables:
 stages:
 - stage: staging_infrastructure_plan
   displayName: Staging Infrastructure Plan
-  condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(always(), or(eq(variables['build.sourceBranch'], 'refs/heads/master'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
   jobs:
   - deployment: staging_infrastructure_plan
     displayName: Staging Infrastructure
@@ -62,7 +62,7 @@ stages:
 - stage: staging_infrastructure_apply
   dependsOn: staging_infrastructure_plan
   displayName: Staging Infrastructure Apply
-  condition: and(always(), contains(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(always(), or(eq(variables['build.sourceBranch'], 'refs/heads/master'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
   jobs:
   - deployment: staging_infrastructure_apply
     displayName: Staging Infrastructure Apply
