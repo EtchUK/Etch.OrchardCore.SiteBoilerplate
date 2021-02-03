@@ -80,7 +80,7 @@ stages:
   - stage: staging_deploy
     dependsOn: build
     displayName: Staging Deployment
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), or(eq(variables['build.sourceBranch'], 'refs/heads/master'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
     variables:
       - group: "Staging"
     jobs:
