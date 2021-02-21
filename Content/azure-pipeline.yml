@@ -67,13 +67,6 @@ stages:
               projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
               arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
 
-          - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
-            displayName: "Save artifact based on: **/package-lock.json"
-            inputs:
-              keyfile: "**/package-lock.json"
-              targetfolder: "**/node_modules,**/node_modules/**/node_modules"
-              vstsFeed: "43c91cfb-ae45-4e8c-a2f5-8a34df9e3b8a"
-
           - task: PublishBuildArtifacts@1
             displayName: "Publishing"
             inputs:
