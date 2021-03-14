@@ -19,7 +19,9 @@ For more detail about Terraform scripts check the provider level `README.md`.
 The following is a high level overview of the provided infrastructure (with Azure names in brackets):
 
 * Application Instance (App Service)
+* Application Insights
 * SQL Database
+* Storage Account
 * CDN 'Server' (CDN Profile)
 * CDN Endpoints
 

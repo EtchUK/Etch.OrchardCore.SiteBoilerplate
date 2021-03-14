@@ -11,7 +11,6 @@ data "azurerm_app_service_plan" "sp" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
-
 locals {
   project_basic_name = lower(
     replace(format("%s%s", var.env, var.project), "/[^A-Za-z]+/", ""),
@@ -26,7 +25,14 @@ locals {
   cdn_urls = {for t in var.tenants: "OrchardCore:${t}:OrchardCore_Media:CdnBaseUrl" => "https://${element(random_id.cdn.*.hex, index(var.tenants, t))}.azureedge.net" }
   tenant_settings = {for t in var.tenants: "OrchardCore:${t}:OrchardCore_Media:AssetsRequestPath" => "/media/${t}" }
   app_settings = merge({
+    "APPINSIGHTS_INSTRUMENTATIONKEY"                       = azurerm_application_insights.appinsights.instrumentation_key
+    "APPINSIGHTS_PROFILERFEATURE_VERSION"                  = "1.0.0"
+    "APPINSIGHTS_SNAPSHOTFEATURE_VERSION"                  = "1.0.0"
+    "APPLICATIONINSIGHTS_CONNECTION_STRING"                = azurerm_application_insights.appinsights.connection_string
+    "ApplicationInsightsAgent_EXTENSION_VERSION"           = "~2"
     "DashboardConnectionString"                            = azurerm_storage_account.sa.primary_connection_string
+    "DiagnosticServices_EXTENSION_VERSION"                 = "~3"
+    "InstrumentationEngine_EXTENSION_VERSION"              = "disabled"
     "StorageConnectionString"                              = azurerm_storage_account.sa.primary_connection_string
     "letsencrypt:ClientId"                                 = var.le_client_id
     "letsencrypt:ClientSecret"                             = var.le_client_secret
@@ -39,8 +45,12 @@ locals {
     "OrchardCore:OrchardCore.Media.Azure:ConnectionString" = azurerm_storage_account.sa.primary_connection_string
     "OrchardCore:OrchardCore.Media.Azure:ContainerName"    = "media"
     "OrchardCore:OrchardCore.Media.Azure:BasePath"         = "{{ ShellSettings.Name }}"
+    "SnapshotDebugger_EXTENSION_VERSION"                   = "disabled"
     "WEBSITE_NODE_DEFAULT_VERSION"                         = "6.9.1"
     "WEBSITE_RUN_FROM_PACKAGE"                             = "0"
+    "XDT_MicrosoftApplicationInsights_BaseExtensions"      = "disabled"
+    "XDT_MicrosoftApplicationInsights_Mode"                = "recommended"
+    "XDT_MicrosoftApplicationInsights_PreemptSdk"          = "disabled"
   }, local.tenant_settings, local.cdn_urls)
 }
 
@@ -77,6 +87,13 @@ resource "azurerm_app_service" "as" {
   site_config {
     always_on = true
   }
+}
+
+resource "azurerm_application_insights" "appinsights" {
+  name                = local.project_hyphenated_name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  application_type    = "web"
 }
 
 resource "azurerm_storage_account" "sa" {
