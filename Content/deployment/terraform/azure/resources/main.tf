@@ -47,7 +47,6 @@ locals {
     "OrchardCore:OrchardCore.Media.Azure:BasePath"         = "{{ ShellSettings.Name }}"
     "SnapshotDebugger_EXTENSION_VERSION"                   = "disabled"
     "WEBSITE_NODE_DEFAULT_VERSION"                         = "6.9.1"
-    "WEBSITE_RUN_FROM_PACKAGE"                             = "0"
     "XDT_MicrosoftApplicationInsights_BaseExtensions"      = "disabled"
     "XDT_MicrosoftApplicationInsights_Mode"                = "recommended"
     "XDT_MicrosoftApplicationInsights_PreemptSdk"          = "disabled"
