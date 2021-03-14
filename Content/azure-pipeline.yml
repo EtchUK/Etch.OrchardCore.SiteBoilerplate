@@ -99,6 +99,7 @@ stages:
                     packageForLinux: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
                     enableCustomDeployment: true
                     RemoveAdditionalFilesFlag: true
+                    AdditionalArguments: '-skip:objectName=dirPath,absolutePath=wwwroot'
 
   - stage: prod_deploy
     dependsOn: build
@@ -124,3 +125,4 @@ stages:
                     packageForLinux: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
                     enableCustomDeployment: true
                     RemoveAdditionalFilesFlag: true
+                    AdditionalArguments: '-skip:objectName=dirPath,absolutePath=wwwroot'
