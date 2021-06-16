@@ -5,9 +5,6 @@ trigger:
   tags:
     include:
       - "*"
-  branches:
-    include:
-      - master
   paths:
     include:
       - deployment/*
@@ -150,6 +147,7 @@ stages:
               workingDirectory: '$(TF_LOCATION)'
               environmentServiceName: 'Dev Ops Prod'
               commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)'
+
 - stage: prod_infrastructure_apply
   dependsOn: prod_infrastructure_plan
   displayName: Prod Infrastructure Apply
