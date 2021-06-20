@@ -262,7 +262,7 @@
         "contentHash": "4ravE01RiSOzxE/3ITJiST2E9LH8TeKEqbcSe5ln9CGkSzQ9+1262Q6+tHKtWNo4TzT9/2GvpSLvfJMw9BpiBQ==",
         "dependencies": {
           "Etch.OrchardCore.Fields": "0.10.0-rc2",
-          "Etch.OrchardCore.SEO": "0.6.2-rc2",
+          "Etch.OrchardCore.SEO": "0.6.3-rc2",
           "OrchardCore.ContentManagement": "1.0.0-rc2-13450",
           "OrchardCore.DisplayManagement": "1.0.0-rc2-13450",
           "OrchardCore.Feeds": "1.0.0-rc2-13450",
