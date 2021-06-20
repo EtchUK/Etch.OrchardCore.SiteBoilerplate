@@ -43,8 +43,8 @@ stages:
           - task: NuGetCommand@2
             displayName: 'NuGet pack'
             inputs:
-              command: pack
-              packagesToPack: Etch.OrchardCore.SiteBoilerplate.nuspec
+              command: custom
+              arguments: 'pack $(System.DefaultWorkingDirectory)\Etch.OrchardCore.SiteBoilerplate.nuspec -NonInteractive -OutputDirectory $(Build.ArtifactStagingDirectory) -Properties Configuration=Release -Verbosity Detailed -NoDefaultExcludes'
 
           - task: PublishPipelineArtifact@1
             displayName: 'Publish Pipeline Artifact'
@@ -68,6 +68,7 @@ stages:
             inputs:
               source: "current"
               path: "$(Pipeline.Workspace)"
+
           - task: NuGetCommand@2
             displayName: "NuGet push"
             inputs:
