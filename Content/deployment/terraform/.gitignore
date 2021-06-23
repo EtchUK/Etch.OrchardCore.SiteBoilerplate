@@ -9,3 +9,6 @@
 
 # State files
 *.tfstate*
+
+# Dependency lock file
+.terraform.lock.hcl
