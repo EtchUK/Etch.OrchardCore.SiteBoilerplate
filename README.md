@@ -8,7 +8,7 @@ Site boilerplate is our starting point for building Orchard Core sites.
 
 ## Orchard Core Reference
 
-This template is referencing the RC2 build of Orchard Core ([`1.0.0-rc2-13450`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.0.0-rc2-13450)).
+This template is referencing a stable build of Orchard Core ([`1.0.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.0.0)).
 
 ## Prerequisities
 
@@ -34,7 +34,6 @@ dotnet new orchardcore-siteboilerplate -n Example.OrchardCore.Site -o Example.Or
 
 Below are the different parameters that can be included in the dotnet new command. These parameters will be used in the .csproj and readme. -n & -o are parameters required by dotnet new.
 
-
 #### -n/--name
 
 Namespace and name of the .Net project e.g. Example.OrchardCore.Site
@@ -56,4 +55,3 @@ Project description displayed in the read me.
 This template has been made available on NuGet. To create the `.nupkg` file that can be published to NuGet, run the command shown below.
 
     nuget pack ./Etch.OrchardCore.SiteBoilerplate.nuspec
-
