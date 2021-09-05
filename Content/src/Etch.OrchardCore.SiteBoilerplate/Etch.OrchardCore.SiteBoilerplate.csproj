@@ -20,7 +20,7 @@
     <PackageReference Include="Etch.OrchardCore.Favicon" Version="1.0.0" />
     <PackageReference Include="Etch.OrchardCore.Fields" Version="1.0.0" />
     <PackageReference Include="Etch.OrchardCore.Gallery" Version="1.0.1" />
-    <PackageReference Include="Etch.OrchardCore.HostTheme" Version="1.0.0" />
+    <PackageReference Include="Etch.OrchardCore.HostTheme" Version="1.0.1" />
     <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="1.0.0" />
     <PackageReference Include="Etch.OrchardCore.Lever" Version="1.0.0" />
     <PackageReference Include="Etch.OrchardCore.Menu" Version="1.0.0" />
