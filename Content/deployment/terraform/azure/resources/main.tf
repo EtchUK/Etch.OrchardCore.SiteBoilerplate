@@ -102,11 +102,12 @@ resource "azurerm_storage_account" "sa" {
     0,
     min(24, length(local.project_basic_name)),
   )
-  resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = data.azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-  account_kind             = "StorageV2"
+  resource_group_name       = data.azurerm_resource_group.rg.name
+  location                  = data.azurerm_resource_group.rg.location
+  account_tier              = "Standard"
+  account_replication_type  = "GRS"
+  account_kind              = "StorageV2"
+  allow_blob_public_access  = true
 }
 
 resource "azurerm_storage_container" "sac" {
