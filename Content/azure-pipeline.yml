@@ -7,7 +7,7 @@ trigger:
       - "*"
   branches:
     include:
-      - master
+      - main
   paths:
     include:
       - src/*
@@ -78,7 +78,7 @@ stages:
   - stage: staging_deploy
     dependsOn: build
     displayName: Staging Deployment
-    condition: and(succeeded(), or(eq(variables['build.sourceBranch'], 'refs/heads/master'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
+    condition: and(succeeded(), or(eq(variables['build.sourceBranch'], 'refs/heads/main'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
     variables:
       - group: "Staging"
     jobs:
