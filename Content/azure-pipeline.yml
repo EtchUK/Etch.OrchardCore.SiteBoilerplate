@@ -16,7 +16,6 @@ trigger:
 
 variables:
   buildConfiguration: "Release"
-  NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
 
 stages:
   - stage: build
@@ -28,14 +27,6 @@ stages:
         pool:
           vmImage: "windows-latest"
         steps:
-          - task: Cache@2
-            displayName: Cache NuGet packages
-            inputs:
-              key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/Etch.OrchardCore.SiteBoilerplate/packages.lock.json'
-              restoreKeys: |
-                nuget | "$(Agent.OS)"
-              path: $(NUGET_PACKAGES)
-
           - task: UseNode@1
             inputs:
               version: "10.x"
