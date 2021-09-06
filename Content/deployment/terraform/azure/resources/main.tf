@@ -85,6 +85,7 @@ resource "azurerm_app_service" "as" {
 
   site_config {
     always_on = true
+    dotnet_framework_version = "v5.0"
   }
 }
 
