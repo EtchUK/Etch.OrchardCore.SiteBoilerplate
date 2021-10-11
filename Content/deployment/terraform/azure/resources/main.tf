@@ -145,7 +145,7 @@ resource "azurerm_cdn_profile" "cp" {
   name                = local.project_hyphenated_name
   location            = data.azurerm_resource_group.rg_alt.location
   resource_group_name = data.azurerm_resource_group.rg_alt.name
-  sku                 = "Standard_Verizon"
+  sku                 = "Standard_Microsoft"
 }
 
 resource "azurerm_cdn_endpoint" "ce" {
