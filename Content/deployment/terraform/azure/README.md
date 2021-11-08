@@ -24,10 +24,6 @@ The site configuration itself is implemented as a module under the `resources` d
 * `HOSTNAMES` - List of strings for hostnames to bind (these must already have CNAME validation set up)
 * `TENANTS` - List of strings for names of tenants on site
 * `TENANT_URLS` - List of strings for primary hostnames for each tenant used to create CDN endpoints that point to hostname
-* `LE_CLIENT_ID` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Client ID
-* `LE_CLIENT_SECRET` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Client Secret
-* `LE_SUBSCRIPTION_ID` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Azure Subscription ID
-* `LE_TENANT` - [Lets Encrypt Site Extension](https://github.com/sjkp/letsencrypt-siteextension) Tenant Name
 * `PROJECT` - Project name, will be cleaned by the script so can be the regular name (e.g.: Etch Play Site)
 * `RG_NAME` - Name of resource group to deploy into, must already exist
 * `RG_NAME_ALT` - Optional name of 'major' region resource group in case `RG_NAME` doesn't support certain resources like CDN

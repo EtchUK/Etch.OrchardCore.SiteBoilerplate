@@ -24,6 +24,7 @@ The following is a high level overview of the provided infrastructure (with Azur
 * Storage Account
 * CDN 'Server' (CDN Profile)
 * CDN Endpoints
+* App Service Managed Certificates
 
 ## SQL
 

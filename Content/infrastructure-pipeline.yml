@@ -54,7 +54,7 @@ stages:
               command: plan
               workingDirectory: '$(TF_LOCATION)'
               environmentServiceName: 'Dev Ops Staging'
-              commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+              commandOptions: '-out plan.ter'
 
 - stage: staging_infrastructure_apply
   dependsOn: staging_infrastructure_plan
@@ -97,7 +97,7 @@ stages:
               command: plan
               workingDirectory: '$(TF_LOCATION)'
               environmentServiceName: 'Dev Ops Staging'
-              commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+              commandOptions: '-out plan.ter'
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Apply'
             inputs:
@@ -146,7 +146,7 @@ stages:
               command: plan
               workingDirectory: '$(TF_LOCATION)'
               environmentServiceName: 'Dev Ops Prod'
-              commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)'
+              commandOptions: '-out plan.ter'
 
 - stage: prod_infrastructure_apply
   dependsOn: prod_infrastructure_plan
@@ -189,7 +189,7 @@ stages:
               command: plan
               workingDirectory: '$(TF_LOCATION)'
               environmentServiceName: 'Dev Ops Prod'
-              commandOptions: '-out plan.ter -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)'
+              commandOptions: '-out plan.ter'
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Apply'
             inputs:
