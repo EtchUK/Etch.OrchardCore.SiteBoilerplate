@@ -30,18 +30,8 @@ locals {
     "APPINSIGHTS_SNAPSHOTFEATURE_VERSION"                  = "1.0.0"
     "APPLICATIONINSIGHTS_CONNECTION_STRING"                = azurerm_application_insights.appinsights.connection_string
     "ApplicationInsightsAgent_EXTENSION_VERSION"           = "~2"
-    "DashboardConnectionString"                            = azurerm_storage_account.sa.primary_connection_string
     "DiagnosticServices_EXTENSION_VERSION"                 = "~3"
     "InstrumentationEngine_EXTENSION_VERSION"              = "disabled"
-    "StorageConnectionString"                              = azurerm_storage_account.sa.primary_connection_string
-    "letsencrypt:ClientId"                                 = var.le_client_id
-    "letsencrypt:ClientSecret"                             = var.le_client_secret
-    "letsencrypt:ResourceGroupName"                        = data.azurerm_resource_group.rg.name
-    "letsencrypt:ServicePlanResourceGroupName"             = data.azurerm_resource_group.rg.name
-    "letsencrypt:SiteSlot"                                 = ""
-    "letsencrypt:SubscriptionId"                           = var.le_subscription_id
-    "letsencrypt:Tenant"                                   = var.le_tenant
-    "letsencrypt:UseIPBasedSSL"                            = "false"
     "OrchardCore:OrchardCore.Media.Azure:ConnectionString" = azurerm_storage_account.sa.primary_connection_string
     "OrchardCore:OrchardCore.Media.Azure:ContainerName"    = "media"
     "OrchardCore:OrchardCore.Media.Azure:BasePath"         = "{{ ShellSettings.Name }}"
@@ -70,18 +60,6 @@ resource "azurerm_app_service" "as" {
   https_only          = true
 
   app_settings = local.app_settings
-
-  connection_string {
-    name  = "AzureWebJobsDashboard"
-    type  = "Custom"
-    value = azurerm_storage_account.sa.primary_connection_string
-  }
-
-  connection_string {
-    name  = "AzureWebJobsStorage"
-    type  = "Custom"
-    value = azurerm_storage_account.sa.primary_connection_string
-  }
 
   site_config {
     always_on = true
@@ -139,6 +117,11 @@ resource "azurerm_app_service_custom_hostname_binding" "hostnames" {
       thumbprint
     ]
   }
+}
+
+resource "azurerm_app_service_managed_certificate" "certificates" {
+  count                       = length(var.hostnames)
+  custom_hostname_binding_id  = azurerm_app_service_custom_hostname_binding.hostnames[count.index].id
 }
 
 resource "azurerm_cdn_profile" "cp" {

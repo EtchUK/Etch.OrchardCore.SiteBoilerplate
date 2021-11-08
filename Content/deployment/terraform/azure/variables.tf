@@ -20,22 +20,6 @@ variable "TENANT_URLS" {
   default     = []
 }
 
-variable "LE_CLIENT_ID" {
-  description = "Lets Encrypt APP ID"
-}
-
-variable "LE_CLIENT_SECRET" {
-  description = "Lets Encrypt App ID"
-}
-
-variable "LE_SUBSCRIPTION_ID" {
-  description = "Lets Encrypt Subscription ID"
-}
-
-variable "LE_TENANT" {
-  description = "Lets Encrypt Tenant"
-}
-
 variable "PROJECT" {
   description = "Project name for resource names"
   default     = "Orchard Core Site Boilerplate"
