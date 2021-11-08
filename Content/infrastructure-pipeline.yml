@@ -33,7 +33,7 @@ stages:
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
             displayName: 'Use Terraform'
             inputs:
-              terraformVersion: 1.0.5
+              terraformVersion: 1.0.10
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Init'
             inputs:
@@ -76,7 +76,7 @@ stages:
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
             displayName: 'Use Terraform'
             inputs:
-              terraformVersion: 1.0.5
+              terraformVersion: 1.0.10
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Init'
             inputs:
@@ -125,7 +125,7 @@ stages:
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
             displayName: 'Use Terraform'
             inputs:
-              terraformVersion: 1.0.5
+              terraformVersion: 1.0.10
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Init'
             inputs:
@@ -168,7 +168,7 @@ stages:
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
             displayName: 'Use Terraform'
             inputs:
-              terraformVersion: 1.0.5
+              terraformVersion: 1.0.10
           - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
             displayName: 'Terraform Init'
             inputs:
