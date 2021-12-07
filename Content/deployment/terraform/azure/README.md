@@ -20,19 +20,18 @@ The site configuration itself is implemented as a module under the `resources` d
 
 ## Variables
 
-* `ENV` - Environment for this instance of infrastructure (e.g.: `dev`)
-* `HOSTNAMES` - List of strings for hostnames to bind (these must already have CNAME validation set up)
-* `TENANTS` - List of strings for names of tenants on site
-* `TENANT_URLS` - List of strings for primary hostnames for each tenant used to create CDN endpoints that point to hostname
-* `PROJECT` - Project name, will be cleaned by the script so can be the regular name (e.g.: Etch Play Site)
-* `RG_NAME` - Name of resource group to deploy into, must already exist
-* `RG_NAME_ALT` - Optional name of 'major' region resource group in case `RG_NAME` doesn't support certain resources like CDN
-* `SP_NAME` - Name of service plan to deploy into, must already exist
-* `SQL_ELASTIC_POOL` - Optional name of SQL Elastic Pool to assign the database too, must already exist
-* `SQL_SERVER_NAME` - Name of SQL Server to deploy into, must already exist
+- `ENV` - Environment for this instance of infrastructure (e.g.: `dev`)
+- `HOSTNAMES` - List of strings for hostnames to bind (these must already have CNAME validation set up)
+- `TENANTS` - List of strings for names of tenants on site
+- `TENANT_URLS` - List of strings for primary hostnames for each tenant used to create CDN endpoints that point to hostname
+- `PROJECT` - Project name, will be cleaned by the script so can be the regular name (e.g.: Etch Play Site)
+- `RG_NAME` - Name of resource group to deploy into, must already exist
+- `RG_NAME_ALT` - Optional name of 'major' region resource group in case `RG_NAME` doesn't support certain resources like CDN
+- `SP_NAME` - Name of service plan to deploy into, must already exist
+- `SQL_ELASTIC_POOL` - Optional name of SQL Elastic Pool to assign the database too, must already exist
+- `SQL_SERVER_NAME` - Name of SQL Server to deploy into, must already exist
+- `DNS_RG_NAME` - Resource group that contains the `DNS_ZONE`
+- `DNS_ZONE` - Zone that `DOMAINS` should be added to
+- `DOMAINS` - List of strings that represent domains that should have a CNAME/TXT record added to the specified `DNS_ZONE`
 
 A note on `ENV` and `PROJECT`, these will be used together to create names for resources, invalid characters will be removed and spaces will be replaced with `-`.
-
-## Outputs
-
-* `APP_SERVICE_NAME` - Name of main app service, can be used with [deployment tools](https://marketplace.visualstudio.com/items?itemName=raul-arrieta.terraform-outputs) to immediately deploy into created infrastructure.

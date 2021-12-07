@@ -25,6 +25,7 @@ The following is a high level overview of the provided infrastructure (with Azur
 * CDN 'Server' (CDN Profile)
 * CDN Endpoints
 * App Service Managed Certificates
+* Azure DNS Records
 
 ## SQL
 
