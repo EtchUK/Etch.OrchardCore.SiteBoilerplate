@@ -46,3 +46,16 @@ variable "SQL_SERVER_NAME" {
   description = "Name of SQL server to create database in"
 }
 
+variable "DOMAINS" {
+  description = "List of domains to add cnames for"
+  type        = list(string)
+  default     = []
+}
+
+variable "DNS_RG_NAME" {
+  description = "Resource group for DNS zone"
+}
+
+variable "DNS_ZONE" {
+  description = "Domain that cname records are added to"
+}

@@ -22,7 +22,7 @@ variable "tenant_urls" {
 
 variable "project" {
   description = "Project name for resource names"
-  default     = "Orchard Core Site Boilerplate"
+  default     = "Example Project"
 }
 
 variable "rg_name" {
@@ -46,3 +46,17 @@ variable "sql_server_name" {
   description = "Name of SQL server to create database in"
 }
 
+variable "domains" {
+  description = "List of domains to add cnames for"
+  type        = list(string)
+  default     = []
+}
+
+variable "dns_rg_name" {
+  description = "Resource group for DNS zone"
+}
+
+
+variable "dns_zone" {
+  description = "Domain that cname records are added to"
+}
