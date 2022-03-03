@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Etch.OrchardCore.SiteBoilerplate</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>Etch Orchard Core Site Boilerplate</title>
     <description>
       Boilerplate site that is our starting point for building OrchardCore sites.
