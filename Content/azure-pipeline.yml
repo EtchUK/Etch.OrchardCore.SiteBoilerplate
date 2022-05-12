@@ -29,7 +29,7 @@ stages:
         steps:
           - task: UseNode@1
             inputs:
-              version: "10.x"
+              version: "16.x"
               checkLatest: true
 
           - task: SonarCloudPrepare@1
@@ -90,7 +90,7 @@ stages:
                     packageForLinux: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
                     enableCustomDeployment: true
                     RemoveAdditionalFilesFlag: true
-                    AdditionalArguments: "-skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\is-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\ms-cache'"
+                    AdditionalArguments: "-skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\is-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\ms-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\sm-cache'"
 
   - stage: prod_deploy
     dependsOn: build
@@ -116,4 +116,4 @@ stages:
                     packageForLinux: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
                     enableCustomDeployment: true
                     RemoveAdditionalFilesFlag: true
-                    AdditionalArguments: "-skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\is-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\ms-cache'"
+                    AdditionalArguments: "-skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\is-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\ms-cache' -skip:objectName=dirPath,absolutePath='\\\\wwwroot\\\\sm-cache'"

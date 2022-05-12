@@ -10,7 +10,7 @@ Orchard Core runs on the .NET Core. Download the latest version from [https://ww
 
 ## Orchard Core Reference
 
-This project is referencing a stable build of Orchard Core ([`1.1.0`](https://www.nuget.org/packages/OrchardCore.Application.Cms.Core.Targets/1.1.0)).
+This project is referencing a stable build of Orchard Core ([`1.3.0`](https://www.nuget.org/packages/OrchardCore.Application.Cms.Core.Targets/1.3.0)).
 
 ## Running Locally
 
@@ -26,4 +26,4 @@ Open the solution in Visual Studio and run the `Etch.OrchardCore.SiteBoilerplate
 
 ## Notes
 
-This project was created using `1.1.1` of [Etch.OrchardCore.SiteBoilerplate](https://github.com/EtchUK/Etch.OrchardCore.SiteBoilerplate) template.
+This project was created using `1.2.0` of [Etch.OrchardCore.SiteBoilerplate](https://github.com/EtchUK/Etch.OrchardCore.SiteBoilerplate) template.
