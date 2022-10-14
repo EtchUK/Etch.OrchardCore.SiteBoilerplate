@@ -26,6 +26,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
 
             app.UseStaticFiles();
             app.UseOrchardCore();
+            app.UsePoweredByOrchardCore(false);
         }
     }
 }
