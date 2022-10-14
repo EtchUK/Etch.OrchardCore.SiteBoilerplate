@@ -9,12 +9,27 @@ namespace Etch.OrchardCore.SiteBoilerplate
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private readonly IHostEnvironment _env;
+
+        public Startup(IHostEnvironment env)
+        {
+            _env = env;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<FormOptions>(options => options.ValueCountLimit = 4096);
-            services.AddOrchardCms();
+
+            var builder = services.AddOrchardCms();
+
+            if (!_env.IsDevelopment())
+            {
+                builder.AddDatabaseShellsConfiguration();
+            }
+            else
+            {
+                builder.AddSetupFeatures("OrchardCore.AutoSetup");
+            }
 
             services.Configure<ForwardedHeadersOptions>(options =>
             {
