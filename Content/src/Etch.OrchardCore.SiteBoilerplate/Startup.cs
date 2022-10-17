@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -37,6 +39,13 @@ namespace Etch.OrchardCore.SiteBoilerplate
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
             });
+
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            });
+
+            services.Configure<CookieTempDataProviderOptions>(options => options.Cookie.SecurePolicy = CookieSecurePolicy.Always);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
