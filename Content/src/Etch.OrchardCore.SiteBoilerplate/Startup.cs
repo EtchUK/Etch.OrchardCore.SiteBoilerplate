@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Etch.OrchardCore.SiteBoilerplate
 {
@@ -40,6 +41,13 @@ namespace Etch.OrchardCore.SiteBoilerplate
                 options.KnownProxies.Clear();
             });
 
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
             services.AddAntiforgery(options =>
             {
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -59,6 +67,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
             }
 
             app.UseStaticFiles();
+            app.UseHsts();
             app.UseOrchardCore();
             app.UsePoweredByOrchardCore(false);
         }
