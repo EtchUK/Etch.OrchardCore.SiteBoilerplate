@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AF36
 		src\Modules\README.md = src\Modules\README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Etch.OrchardCore.CacheControl", "..\..\Etch.OrchardCore.CacheControl\Etch.OrchardCore.CacheControl.csproj", "{5B36A908-32A9-42CE-927C-4F35F67D3560}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,16 +25,9 @@ Global
 		{4EAEB124-E0A2-495A-914B-9529008E6AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EAEB124-E0A2-495A-914B-9529008E6AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EAEB124-E0A2-495A-914B-9529008E6AAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B36A908-32A9-42CE-927C-4F35F67D3560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B36A908-32A9-42CE-927C-4F35F67D3560}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B36A908-32A9-42CE-927C-4F35F67D3560}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B36A908-32A9-42CE-927C-4F35F67D3560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5B36A908-32A9-42CE-927C-4F35F67D3560} = {AF36DFC0-62EB-4CB2-9A16-65F701493A99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D77BCA7C-DEED-4924-8394-21E21A1F50C8}
