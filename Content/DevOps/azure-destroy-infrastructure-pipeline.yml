@@ -1,0 +1,190 @@
+resources:
+  - repo: self
+
+trigger: none
+
+variables:
+  TF_LOCATION: '$(System.DefaultWorkingDirectory)/DevOps/terraform/azure'
+
+stages:
+- stage: staging_infrastructure_plan
+  displayName: Staging Infrastructure Plan
+  jobs:
+  - deployment: staging_infrastructure_plan
+    displayName: Staging Infrastructure
+    environment: 'Staging'
+    variables:
+      - group: 'Staging'
+    pool:
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+            displayName: 'Use Terraform'
+            inputs:
+              terraformVersion: 1.4.0
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: init
+              workingDirectory: '$(TF_LOCATION)'
+              backendType: azurerm
+              backendServiceArm: 'Dev Ops Staging'
+              ensureBackend: true
+              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
+              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
+              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
+              backendAzureRmStorageAccountSku: 'Standard_LRS'
+              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
+              backendAzureRmKey: '$(TF_VAR_ENV)'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: plan
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Staging'
+              commandOptions: '-destroy -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+
+- stage: staging_infrastructure_apply
+  dependsOn: staging_infrastructure_plan
+  displayName: Staging Infrastructure Apply
+  condition: succeeded()
+  jobs:
+  - deployment: staging_infrastructure_apply
+    displayName: Staging Infrastructure Apply
+    environment: 'Staging Approval'
+    variables:
+      - group: 'Staging'
+    pool:
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+            displayName: 'Use Terraform'
+            inputs:
+              terraformVersion: 1.4.0
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: init
+              workingDirectory: '$(TF_LOCATION)'
+              backendType: azurerm
+              backendServiceArm: 'Dev Ops Staging'
+              ensureBackend: true
+              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
+              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
+              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
+              backendAzureRmStorageAccountSku: 'Standard_LRS'
+              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
+              backendAzureRmKey: '$(TF_VAR_ENV)'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: plan
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Staging'
+              commandOptions: '-destroy -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Apply'
+            inputs:
+              command: destroy
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Staging'
+              commandOptions: '-auto-approve -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+
+- stage: prod_infrastructure_plan
+  displayName: Prod Infrastructure Plan
+  jobs:
+  - deployment: prod_infrastructure_plan
+    displayName: Prod Infrastructure
+    environment: 'Prod'
+    variables:
+      - group: 'Prod'
+    pool:
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+            displayName: 'Use Terraform'
+            inputs:
+              terraformVersion: 1.4.0
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: init
+              workingDirectory: '$(TF_LOCATION)'
+              backendType: azurerm
+              backendServiceArm: 'Dev Ops Prod'
+              ensureBackend: true
+              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
+              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
+              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
+              backendAzureRmStorageAccountSku: 'Standard_LRS'
+              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
+              backendAzureRmKey: '$(TF_VAR_ENV)'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: plan
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Prod'
+              commandOptions: '-destroy -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+
+- stage: prod_infrastructure_apply
+  dependsOn: prod_infrastructure_plan
+  displayName: Prod Infrastructure Apply
+  condition: succeeded()
+  jobs:
+  - deployment: prod_infrastructure_apply
+    displayName: Prod Infrastructure Apply
+    environment: 'Prod'
+    variables:
+      - group: 'Prod'
+    pool:
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+            displayName: 'Use Terraform'
+            inputs:
+              terraformVersion: 1.4.0
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: init
+              workingDirectory: '$(TF_LOCATION)'
+              backendType: azurerm
+              backendServiceArm: 'Dev Ops Prod'
+              ensureBackend: true
+              backendAzureRmResourceGroupName: '$(STATE_STORAGE_RESOURCE_GROUP)'
+              backendAzureRmResourceGroupLocation: '$(STATE_STORAGE_LOCATION)'
+              backendAzureRmStorageAccountName: '$(STATE_STORAGE_ACCOUNT)'
+              backendAzureRmStorageAccountSku: 'Standard_LRS'
+              backendAzureRmContainerName: '$(STATE_STORAGE_CONTAINER)'
+              backendAzureRmKey: '$(TF_VAR_ENV)'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Plan'
+            inputs:
+              command: plan
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Prod'
+              commandOptions: '-destroy -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
+          - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+            displayName: 'Terraform Apply'
+            inputs:
+              command: destroy
+              workingDirectory: '$(TF_LOCATION)'
+              environmentServiceName: 'Dev Ops Prod'
+              commandOptions: '-auto-approve -lock=false -input=false -var "LE_CLIENT_SECRET=$(TF_VAR_LE_CLIENT_SECRET)"'
