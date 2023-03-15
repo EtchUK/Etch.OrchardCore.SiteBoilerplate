@@ -26,4 +26,4 @@ Open the solution in Visual Studio and run the `Etch.OrchardCore.SiteBoilerplate
 
 ## Notes
 
-This project was created using `1.3.0` of [our boilerplate template](https://github.com/EtchUK/etch.orchardcore.siteboilerplate).
+This project was created using `#{VersionNumber}#` of [our boilerplate template](https://github.com/EtchUK/etch.orchardcore.siteboilerplate).
