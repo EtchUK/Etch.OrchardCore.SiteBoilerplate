@@ -1,0 +1,203 @@
+resources:
+  - repo: self
+
+trigger:
+  tags:
+    include:
+      - "*"
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/*
+      - aws-pipelines.yml
+      - nuget.config
+
+variables:
+  buildConfiguration: "Release"
+  buildRuntime: "linux-x64"
+
+stages:
+  - stage: build
+    displayName: Build
+    variables:
+      - group: "Global"
+    jobs:
+      - job: Build
+        pool:
+          vmImage: "windows-latest"
+        steps:
+          - task: UseNode@1
+            inputs:
+              version: "16.x"
+              checkLatest: true
+
+          - task: SonarCloudPrepare@1
+            displayName: "Prepare SonarCloud Analysis"
+            inputs:
+              SonarCloud: "SC"
+              organization: "$(SonarCloudOrganization)"
+              scannerMode: "MSBuild"
+              projectKey: "$(SonarCloudProject)"
+              projectName: "$(SonarCloudProject)"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Build"
+            inputs:
+              command: build
+              projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
+              arguments: "--configuration $(buildConfiguration) --runtime $(buildRuntime) --self-contained"
+
+          - task: SonarCloudAnalyze@1
+            displayName: "Run SonarCloud Analysis"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Publish"
+            inputs:
+              command: publish
+              publishWebProjects: false
+              projects: '.\src\Etch.OrchardCore.SiteBoilerplate\Etch.OrchardCore.SiteBoilerplate.csproj'
+              arguments: "--configuration $(buildConfiguration) --runtime $(buildRuntime) --output $(Build.ArtifactStagingDirectory)"
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publishing"
+            inputs:
+              pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+
+          - task: SonarCloudPublish@1
+            displayName: "Publish SonarCloud Results"
+
+  - stage: staging_deploy
+    dependsOn: build
+    displayName: Staging Deployment
+    condition: and(succeeded(), or(eq(variables['build.sourceBranch'], 'refs/heads/main'), startsWith(variables['build.sourceBranch'], 'refs/tags/')))
+    variables:
+      - group: "Staging"
+    jobs:
+      - deployment: staging_deploy
+        displayName: Staging Deploy
+        pool:
+          vmImage: "windows-latest"
+        environment: "Staging"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: ExtractFiles@1
+                  displayName: "Extract Artifact"
+                  inputs:
+                    archiveFilePatterns: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
+                    destinationFolder: "$(Build.ArtifactStagingDirectory)/bundle"
+
+                - task: replacetokens@3
+                  inputs:
+                    rootDirectory: '"$(Build.ArtifactStagingDirectory)/bundle/.ebextensions'
+                    targetFiles: "**/*.config"
+                    actionOnMissing: "fail"
+                    tokenPrefix: "#{"
+                    tokenSuffix: "}#"
+
+                - task: ArchiveFiles@2
+                  displayName: "Zip Bundle"
+                  inputs:
+                    rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/bundle"
+                    includeRootFolder: false
+                    archiveType: "zip"
+                    archiveFile: "$(Build.ArtifactStagingDirectory)/drop/$(Build.BuildId).zip"
+
+                - task: AmazonWebServices.aws-vsts-tools.S3Upload.S3Upload@1
+                  displayName: "S3 Upload"
+                  inputs:
+                    awsCredentials: 'AWS Staging'
+                    regionName: "$(Region)"
+                    bucketName: "$(BucketName)"
+                    sourceFolder: "$(Build.ArtifactStagingDirectory)/drop"
+                    targetFolder: "$(ApplicationName)/$(EnvironmentName)/"
+
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  displayName: "Create Application Version"
+                  inputs:
+                    awsCredentials: 'AWS Staging'
+                    regionName: "$(Region)"
+                    awsCommand: elasticbeanstalk
+                    awsSubCommand: "create-application-version"
+                    awsArguments: '--application-name $(ApplicationName) --version-label $(Build.BuildId) --description build-$(Build.BuildId) --source-bundle S3Bucket="$(BucketName)",S3Key="$(ApplicationName)/$(EnvironmentName)/$(Build.BuildId).zip"'
+                    failOnStandardError: false
+
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  displayName: "Update Environment"
+                  inputs:
+                    awsCredentials: 'AWS Staging'
+                    regionName: "$(Region)"
+                    awsCommand: elasticbeanstalk
+                    awsSubCommand: "update-environment"
+                    awsArguments: "--environment-name $(EnvironmentName) --version-label $(Build.BuildId)"
+                    failOnStandardError: false
+
+  - stage: prod_deploy
+    dependsOn: build
+    displayName: Prod Deployment
+    condition: and(succeeded(), startsWith(variables['build.sourceBranch'], 'refs/tags/'))
+    variables:
+      - group: "Prod"
+    jobs:
+      - deployment: prod_deploy
+        displayName: Prod Deploy
+        pool:
+          vmImage: "windows-latest"
+        environment: "Prod"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: ExtractFiles@1
+                  displayName: "Extract Artifact"
+                  inputs:
+                    archiveFilePatterns: "$(Pipeline.Workspace)/drop/Etch.OrchardCore.SiteBoilerplate.zip"
+                    destinationFolder: "$(Build.ArtifactStagingDirectory)/bundle"
+
+                - task: replacetokens@3
+                  inputs:
+                    rootDirectory: '"$(Build.ArtifactStagingDirectory)/bundle/.ebextensions'
+                    targetFiles: "**/*.config"
+                    actionOnMissing: "fail"
+                    tokenPrefix: "#{"
+                    tokenSuffix: "}#"
+
+                - task: ArchiveFiles@2
+                  displayName: "Zip Bundle"
+                  inputs:
+                    rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/bundle"
+                    includeRootFolder: false
+                    archiveType: "zip"
+                    archiveFile: "$(Build.ArtifactStagingDirectory)/drop/$(Build.BuildId).zip"
+
+                - task: AmazonWebServices.aws-vsts-tools.S3Upload.S3Upload@1
+                  displayName: "S3 Upload"
+                  inputs:
+                    awsCredentials: 'AWS Prod'
+                    regionName: "$(Region)"
+                    bucketName: "$(BucketName)"
+                    sourceFolder: "$(Build.ArtifactStagingDirectory)/drop"
+                    targetFolder: "$(ApplicationName)/$(EnvironmentName)/"
+
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  displayName: "Create Application Version"
+                  inputs:
+                    awsCredentials: 'AWS Prod'
+                    regionName: "$(Region)"
+                    awsCommand: elasticbeanstalk
+                    awsSubCommand: "create-application-version"
+                    awsArguments: '--application-name $(ApplicationName) --version-label $(Build.BuildId) --description build-$(Build.BuildId) --source-bundle S3Bucket="$(BucketName)",S3Key="$(ApplicationName)/$(EnvironmentName)/$(Build.BuildId).zip"'
+                    failOnStandardError: false
+
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  displayName: "Update Environment"
+                  inputs:
+                    awsCredentials: 'AWS Prod'
+                    regionName: "$(Region)"
+                    awsCommand: elasticbeanstalk
+                    awsSubCommand: "update-environment"
+                    awsArguments: "--environment-name $(EnvironmentName) --version-label $(Build.BuildId)"
+                    failOnStandardError: false
