@@ -11,7 +11,7 @@ trigger:
   paths:
     include:
       - src/*
-      - aws-pipelines.yml
+      - DevOps/aws-pipelines.yml
       - nuget.config
 
 variables:

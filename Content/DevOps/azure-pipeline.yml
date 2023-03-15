@@ -11,7 +11,7 @@ trigger:
   paths:
     include:
       - src/*
-      - azure-pipelines.yml
+      - DevOps/azure-pipelines.yml
       - nuget.config
 
 variables:
