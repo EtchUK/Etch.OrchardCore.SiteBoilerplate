@@ -12,6 +12,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".ebextensions\mount.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include=".ebextensions\staging.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include=".platform\nginx\conf.d\server.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include=".platform\nginx\conf.d\elasticbeanstalk\00_application.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include=".platform\nginx\conf.d\elasticbeanstalk\upload.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="1.5.0" />
     <PackageReference Include="Etch.OrchardCore.Blocks" Version="1.6.0" />
     <PackageReference Include="Etch.OrchardCore.CacheControl" Version="0.4.0" />

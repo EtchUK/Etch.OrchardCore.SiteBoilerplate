@@ -11,10 +11,13 @@ Terraform has multiple [providers](https://www.terraform.io/docs/providers/index
 Current provider implementations:
 
 * Azure - `deployment/terraform/azure`
+* AWS - `deployment/terraform/aws`
 
 For more detail about Terraform scripts check the provider level `README.md`.
 
 ### Provided Infrastructure
+
+#### Azure
 
 The following is a high level overview of the provided infrastructure (with Azure names in brackets):
 
@@ -27,6 +30,18 @@ The following is a high level overview of the provided infrastructure (with Azur
 * App Service Managed Certificates
 * Azure DNS Records
 
-## SQL
+##### SQL
 
 Under `deployment/sql` you will find a template for a SQL script to execute against your Terraform managed database to generate a user which your Orchard Core sites can use simply replace `<%PROJECT_HYPHENATED_NAME%>` with the name generated in the Terraform script for your project and environment.
+
+#### AWS
+
+The following is a high level overview of provided infrastructure
+
+* VPC
+* Elastic Beanstalk Instance
+* Elastic File System
+* RDS Database (MySQL)
+* S3 Bucket
+* CloudFront
+* AWS WAF
