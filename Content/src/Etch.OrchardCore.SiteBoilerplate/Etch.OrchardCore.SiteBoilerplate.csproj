@@ -12,33 +12,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="1.4.0" />
-    <PackageReference Include="Etch.OrchardCore.Blocks" Version="1.5.1" />
-    <PackageReference Include="Etch.OrchardCore.CacheControl" Version="0.3.0" />
-    <PackageReference Include="Etch.OrchardCore.CivicCookieControl" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.ContentPermissions" Version="1.3.1" />
-    <PackageReference Include="Etch.OrchardCore.ContextualEdit" Version="1.4.0" />
-    <PackageReference Include="Etch.OrchardCore.Favicon" Version="1.4.0" />
-    <PackageReference Include="Etch.OrchardCore.Fields" Version="1.3.1" />
-    <PackageReference Include="Etch.OrchardCore.Fonts" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.Gallery" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.Greenhouse" Version="1.2.0" />
-    <PackageReference Include="Etch.OrchardCore.HostTheme" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="1.3.0" />
+    <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="1.5.0" />
+    <PackageReference Include="Etch.OrchardCore.Blocks" Version="1.6.0" />
+    <PackageReference Include="Etch.OrchardCore.CacheControl" Version="0.4.0" />
+    <PackageReference Include="Etch.OrchardCore.CivicCookieControl" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.ContentPermissions" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.ContextualEdit" Version="1.5.1" />
+    <PackageReference Include="Etch.OrchardCore.Favicon" Version="1.5.0" />
+    <PackageReference Include="Etch.OrchardCore.Fields" Version="1.4.1" />
+    <PackageReference Include="Etch.OrchardCore.Fonts" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.Gallery" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.Greenhouse" Version="1.4.1" />
+    <PackageReference Include="Etch.OrchardCore.HostTheme" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="1.4.0" />
     <PackageReference Include="Etch.OrchardCore.Lever" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.Menu" Version="1.6.0" />
-    <PackageReference Include="Etch.OrchardCore.News" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.Liquid" Version="1.0.0" />
+    <PackageReference Include="Etch.OrchardCore.Menu" Version="1.8.0" />
+    <PackageReference Include="Etch.OrchardCore.News" Version="1.5.0" />
     <PackageReference Include="Etch.OrchardCore.Postcode" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.PressKit" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.RSS" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.SEO" Version="1.4.0" />
-    <PackageReference Include="Etch.OrchardCore.TeamTailor" Version="1.1.0" />
-    <PackageReference Include="Etch.OrchardCore.ThemeSettings" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.TinyPNG" Version="1.3.0" />
-    <PackageReference Include="Etch.OrchardCore.Widgets" Version="1.7.3" />
-    <PackageReference Include="Etch.OrchardCore.Workflows" Version="1.3.0" />
-    <PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.PressKit" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.RSS" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.SEO" Version="1.5.0" />
+    <PackageReference Include="Etch.OrchardCore.TeamTailor" Version="1.1.1" />
+    <PackageReference Include="Etch.OrchardCore.ThemeSettings" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.TinyPNG" Version="1.4.0" />
+    <PackageReference Include="Etch.OrchardCore.Widgets" Version="1.9.1" />
+    <PackageReference Include="Etch.OrchardCore.Workflows" Version="1.4.0" />
+    <PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.5.0" />
   </ItemGroup>
 
 </Project>
