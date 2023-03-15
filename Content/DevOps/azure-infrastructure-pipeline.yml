@@ -7,11 +7,11 @@ trigger:
       - "*"
   paths:
     include:
-      - deployment/*
+      - DevOps/*
       - infrastructure-pipeline.yml
 
 variables:
-  TF_LOCATION: '$(System.DefaultWorkingDirectory)/deployment/terraform/azure'
+  TF_LOCATION: '$(System.DefaultWorkingDirectory)/DevOps/terraform/azure'
 
 stages:
 - stage: staging_infrastructure_plan
