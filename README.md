@@ -4,7 +4,7 @@ Site boilerplate is our starting point for building Orchard Core sites.
 
 ## Build Status
 
-[![Build Status](https://secure.travis-ci.org/EtchUK/Etch.OrchardCore.SiteBoilerplate.png?branch=master)](http://travis-ci.org/EtchUK/Etch.OrchardCore.SiteBoilerplate) [![NuGet](https://img.shields.io/nuget/v/Etch.OrchardCore.SiteBoilerplate.svg)](https://www.nuget.org/packages/Etch.OrchardCore.SiteBoilerplate)
+[![NuGet](https://img.shields.io/nuget/v/Etch.OrchardCore.SiteBoilerplate.svg)](https://www.nuget.org/packages/Etch.OrchardCore.SiteBoilerplate)
 
 ## Orchard Core Reference
 
