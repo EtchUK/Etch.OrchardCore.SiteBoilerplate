@@ -1,9 +1,5 @@
 resource "aws_elastic_beanstalk_application" "eba" {
   name = "${var.project}-application"
-
-  tags = {
-    Name = var.project
-  }
 }
 
 resource "aws_elastic_beanstalk_environment" "ebe" {
@@ -63,9 +59,5 @@ resource "aws_elastic_beanstalk_environment" "ebe" {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
     name      = "SystemType"
     value     = "enhanced"
-  }
-
-  tags = {
-    Name = var.project
   }
 }
