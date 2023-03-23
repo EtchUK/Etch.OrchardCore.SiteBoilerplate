@@ -33,7 +33,7 @@ stages:
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
                   displayName: "Use Terraform"
                   inputs:
-                    terraformVersion: 1.4.0
+                    terraformVersion: 1.4.2
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
                   displayName: "Terraform Init"
                   inputs:
@@ -73,7 +73,7 @@ stages:
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
                   displayName: "Use Terraform"
                   inputs:
-                    terraformVersion: 1.4.0
+                    terraformVersion: 1.4.2
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
                   displayName: "Terraform Init"
                   inputs:
@@ -120,7 +120,7 @@ stages:
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
                   displayName: "Use Terraform"
                   inputs:
-                    terraformVersion: 1.4.0
+                    terraformVersion: 1.4.2
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
                   displayName: "Terraform Init"
                   inputs:
@@ -160,7 +160,7 @@ stages:
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
                   displayName: "Use Terraform"
                   inputs:
-                    terraformVersion: 1.4.0
+                    terraformVersion: 1.4.2
                 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
                   displayName: "Terraform Init"
                   inputs:
