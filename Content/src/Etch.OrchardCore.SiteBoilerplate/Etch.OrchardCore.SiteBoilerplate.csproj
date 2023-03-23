@@ -18,9 +18,6 @@
     <None Include=".ebextensions\staging.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include=".platform\nginx\conf.d\server.conf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include=".platform\nginx\conf.d\elasticbeanstalk\00_application.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
