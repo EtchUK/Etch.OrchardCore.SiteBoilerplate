@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.27"
+    }
+  }
+}
+
 resource "aws_wafv2_ip_set" "cloudfront" {
   name               = "PermittedIPsCloudfront${title(var.env)}"
   scope              = "CLOUDFRONT"
