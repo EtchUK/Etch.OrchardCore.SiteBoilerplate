@@ -67,6 +67,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<MediaLibraryNoCacheMiddleware>();
             app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseStaticFiles();
             app.UseHsts();
