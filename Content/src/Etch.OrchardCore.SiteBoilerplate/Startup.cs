@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Etch.OrchardCore.SiteBoilerplate.Middleware;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -66,6 +67,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseStaticFiles();
             app.UseHsts();
             app.UseOrchardCore();
