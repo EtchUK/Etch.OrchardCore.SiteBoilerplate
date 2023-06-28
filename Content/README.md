@@ -10,7 +10,7 @@ Orchard Core runs on the .NET Core. Download the latest version from [https://ww
 
 ## Orchard Core Reference
 
-This project is referencing a stable build of Orchard Core ([`1.5.0`](https://www.nuget.org/packages/OrchardCore.Application.Cms.Core.Targets/1.5.0)).
+This project is referencing a stable build of Orchard Core ([`1.6.0`](https://www.nuget.org/packages/OrchardCore.Application.Cms.Core.Targets/1.6.0)).
 
 ## Running Locally
 
