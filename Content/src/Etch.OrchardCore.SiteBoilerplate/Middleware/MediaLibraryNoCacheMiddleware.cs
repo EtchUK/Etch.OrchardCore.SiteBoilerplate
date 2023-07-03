@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Etch.OrchardCore.SiteBoilerplate.Middleware
@@ -23,7 +22,7 @@ namespace Etch.OrchardCore.SiteBoilerplate.Middleware
                 "/Admin/Media/GetMediaItems"
             };
 
-            if (httpContext.Request.Path.HasValue && noCachePaths.Any(x => httpContext.Request.Path.Value.EndsWith(x, StringComparison.OrdinalIgnoreCase)))
+            if (httpContext.Request.Path.HasValue && noCachePaths.Exists(x => httpContext.Request.Path.Value.EndsWith(x, StringComparison.OrdinalIgnoreCase)))
             {
                 httpContext.Response.Headers["cache-control"] = "no-cache";
             }
