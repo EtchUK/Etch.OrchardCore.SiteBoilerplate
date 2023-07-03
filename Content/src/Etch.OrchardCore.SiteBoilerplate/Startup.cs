@@ -26,11 +26,7 @@ namespace Etch.OrchardCore.SiteBoilerplate
 
             var builder = services.AddOrchardCms();
 
-            if (!_env.IsDevelopment())
-            {
-                builder.AddDatabaseShellsConfiguration();
-            }
-            else
+            if (_env.IsDevelopment())
             {
                 builder.AddSetupFeatures("OrchardCore.AutoSetup");
             }
