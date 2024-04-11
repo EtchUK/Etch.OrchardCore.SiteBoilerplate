@@ -8,7 +8,7 @@ Site boilerplate is our starting point for building Orchard Core sites.
 
 ## Orchard Core Reference
 
-This template is referencing a stable build of Orchard Core ([`1.6.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.6.0)).
+This template is referencing a stable build of Orchard Core ([`1.7.2`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.7.2)).
 
 ## Prerequisities
 
