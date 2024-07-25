@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="1.7.1" />
-    <PackageReference Include="Etch.OrchardCore.Blocks" Version="1.8.0" />
+    <PackageReference Include="Etch.OrchardCore.AdminTheme" Version="1.8.0" />
+    <PackageReference Include="Etch.OrchardCore.Blocks" Version="1.9.0" />
     <PackageReference Include="Etch.OrchardCore.CacheControl" Version="0.7.0" />
     <PackageReference Include="Etch.OrchardCore.CivicCookieControl" Version="1.9.0" />
     <PackageReference Include="Etch.OrchardCore.ContentPermissions" Version="1.7.0" />
@@ -36,20 +36,20 @@
     <PackageReference Include="Etch.OrchardCore.Favicon" Version="1.8.0" />
     <PackageReference Include="Etch.OrchardCore.Fields" Version="1.7.0" />
     <PackageReference Include="Etch.OrchardCore.Fonts" Version="1.7.0" />
-    <PackageReference Include="Etch.OrchardCore.Gallery" Version="1.6.0" />
+    <PackageReference Include="Etch.OrchardCore.Gallery" Version="1.7.0" />
     <PackageReference Include="Etch.OrchardCore.HostTheme" Version="1.7.0" />
     <PackageReference Include="Etch.OrchardCore.InjectScripts" Version="1.7.0" />
     <PackageReference Include="Etch.OrchardCore.Liquid" Version="1.4.0" />
-    <PackageReference Include="Etch.OrchardCore.Menu" Version="1.11.0" />
+    <PackageReference Include="Etch.OrchardCore.Menu" Version="1.12.0" />
     <PackageReference Include="Etch.OrchardCore.News" Version="1.8.0" />
     <PackageReference Include="Etch.OrchardCore.OutputCache" Version="0.4.0-alpha" />
     <PackageReference Include="Etch.OrchardCore.PressKit" Version="1.7.0" />
-    <PackageReference Include="Etch.OrchardCore.RSS" Version="1.7.1" />
+    <PackageReference Include="Etch.OrchardCore.RSS" Version="1.8.0" />
     <PackageReference Include="Etch.OrchardCore.SEO" Version="1.8.0" />
-    <PackageReference Include="Etch.OrchardCore.ThemeSettings" Version="1.7.0" />
+    <PackageReference Include="Etch.OrchardCore.ThemeSettings" Version="1.8.0" />
     <PackageReference Include="Etch.OrchardCore.TinyPNG" Version="1.8.0" />
-    <PackageReference Include="Etch.OrchardCore.Widgets" Version="1.12.0" />
-    <PackageReference Include="Etch.OrchardCore.Workflows" Version="1.6.0" />
+    <PackageReference Include="Etch.OrchardCore.Widgets" Version="1.13.0" />
+    <PackageReference Include="Etch.OrchardCore.Workflows" Version="1.7.0" />
     <PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.8.3" />
     <PackageReference Include="OrchardCore.Logging.NLog" Version="1.8.3" />
   </ItemGroup>
